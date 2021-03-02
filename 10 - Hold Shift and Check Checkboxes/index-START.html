@@ -92,12 +92,34 @@
 
 <script>
 
-const checkbox = document.querySelectorAll('.inbox input[type="checkbox"]');
+const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
 
-console.log(checkbox);
-// checkbox.addEventListener('click', (e) => {
-//   console.log(e.target.value);
-// });
+let lastChecked;
+
+const handleCheck = (e) => {
+  if (e.shiftKey && e.target.checked) {
+    let inBetween = false;
+
+    checkboxes.forEach(checkbox => {
+      console.log(checkbox);
+      if(checkbox === e.target || checkbox === lastChecked) {
+        inBetween = !inBetween;
+        console.log('test');
+      }
+
+      if(inBetween){
+        checkbox.checked = true;
+      }
+
+    })
+  }
+
+  lastChecked = e.target;
+}
+
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener('click', handleCheck);
+})
 
 </script>
 </body>
